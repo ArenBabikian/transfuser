@@ -223,9 +223,17 @@ class LeaderboardEvaluator(object):
         else:
             self.world.wait_for_tick()
 
-        if CarlaDataProvider.get_map().name != town:
-            raise Exception("The CARLA server uses the wrong map!"
-                            "This scenario requires to use map {}".format(town))
+        used_map = CarlaDataProvider.get_map().name.split('/')[-1]
+        if used_map != town:
+            raise Exception("The CARLA server uses the wrong map ({})!"
+                            "This scenario requires to use map {}".format(CarlaDataProvider.get_map().name, town))
+
+    def _handle_intersection(self, config):
+        id = int(config.intersection_id)
+        # TODO handle this
+        all_intersections = list(CarlaDataProvider._traffic_light_map.keys())
+        for i in all_intersections:
+            i.set_state(carla.TrafficLightState.Green)
 
     def _register_statistics(self, config, checkpoint, entry_status, crash_message=""):
         """
@@ -252,6 +260,8 @@ class LeaderboardEvaluator(object):
         """
         crash_message = ""
         entry_status = "Started"
+
+        #####################################
 
         print("\n\033[1m========= Preparing {} (repetition {}) =========".format(config.name, config.repetition_index))
         print("> Setting up the agent\033[0m")
@@ -308,12 +318,17 @@ class LeaderboardEvaluator(object):
             self._cleanup()
             return
 
+        ############################################################
+
         print("\033[1m> Loading the world\033[0m")
 
         # Load the world and the scenario
+        # IMPORTANT
         try:
+            # 3 lines below are important
             self._load_and_wait_for_world(args, config.town, config.ego_vehicles)
             self._prepare_ego_vehicles(config.ego_vehicles, False)
+            self._handle_intersection(config)
             scenario = RouteScenario(world=self.world, config=config, debug_mode=args.debug)
             self.statistics_manager.set_scenario(scenario.scenario)
 
@@ -324,7 +339,10 @@ class LeaderboardEvaluator(object):
 
             # Load scenario and run it
             if args.record:
-                self.client.start_recorder("{}/{}_rep{}.log".format(args.record, config.name, config.repetition_index))
+                record_path = args.record
+                # record_path="{}/{}_rep{}.log".format(args.record, config.name, config.repetition_index)
+                print(f'RECORDING at {record_path}')
+                self.client.start_recorder(record_path)
             self.manager.load_scenario(scenario, self.agent_instance, config.repetition_index)
 
         except Exception as e:
@@ -394,6 +412,7 @@ class LeaderboardEvaluator(object):
         """
         Run the challenge mode
         """
+        # IPORTANT IMPORTANT
         route_indexer = RouteIndexer(args.routes, args.scenarios, args.repetitions)
 
         if args.resume:
@@ -419,7 +438,7 @@ class LeaderboardEvaluator(object):
 
 
 def main():
-    description = "CARLA AD Leaderboard Evaluation: evaluate your Agent in CARLA scenarios\n"
+    description = "CARLA AD Aren Evaluation: evaluate your Agent in CARLA scenarios\n"
 
     # general parameters
     parser = argparse.ArgumentParser(description=description, formatter_class=RawTextHelpFormatter)

@@ -14,10 +14,16 @@ import xml.etree.ElementTree as ET
 import carla
 from agents.navigation.local_planner import RoadOption
 from srunner.scenarioconfigs.route_scenario_configuration import RouteScenarioConfiguration
+from srunner.scenarioconfigs.scenario_configuration import ActorConfigurationData
 
 # TODO  check this threshold, it could be a bit larger but not so large that we cluster scenarios.
 TRIGGER_THRESHOLD = 2.0  # Threshold to say if a trigger position is new or repeated, works for matching positions
 TRIGGER_ANGLE_THRESHOLD = 10  # Threshold to say if two angles can be considering matching when matching transforms.
+
+
+class IntersectionRouteConfiguration(RouteScenarioConfiguration):
+
+    intersection_id = None
 
 
 class RouteParser(object):
@@ -60,11 +66,21 @@ class RouteParser(object):
             if single_route and route_id != single_route:
                 continue
 
-            new_config = RouteScenarioConfiguration()
+            new_config = IntersectionRouteConfiguration()
             new_config.town = route.attrib['town']
             new_config.name = "RouteScenario_{}".format(route_id)
             new_config.weather = RouteParser.parse_weather(route)
             new_config.scenario_file = scenario_file
+
+            new_config.intersection_id = route.attrib['intersection_id']
+
+            # ADDED TODO
+            other_actors = []
+            for oa in route.iter('other_actor'):
+                actor = ActorConfigurationData.parse_from_node(oa, 'missing')
+                other_actors.append(actor)
+            new_config.other_actors = other_actors
+
 
             waypoint_list = []  # the list of waypoints that can be found on this route
             for waypoint in route.iter('waypoint'):

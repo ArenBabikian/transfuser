@@ -187,16 +187,23 @@ class RouteScenario(BasicScenario):
         self.route = None
         self.sampled_scenarios_definitions = None
 
+        # PENDING
         self._update_route(world, config, debug_mode>0)
-
+        
+        # UNDERSTOOD
         ego_vehicle = self._update_ego_vehicle()
 
+        # Adding the other actors is in either of the two commands below
+        # List of scenario object instances, each object is a type of scenario, witj (potentially) conditional behaviors
         self.list_scenarios = self._build_scenario_instances(world,
                                                              ego_vehicle,
                                                              self.sampled_scenarios_definitions,
                                                              scenarios_per_tick=10,
                                                              timeout=self.timeout,
                                                              debug_mode=debug_mode>1)
+
+        # BIG HACK HERE
+        # I might be able to disregard the bove command entirely, just create other_actors manually, then assign a maneuevr_at_intersection without having to creaet a XXXScenario Object
 
         super(RouteScenario, self).__init__(name=config.name,
                                             ego_vehicles=[ego_vehicle],
@@ -442,46 +449,48 @@ class RouteScenario(BasicScenario):
 
     # pylint: enable=no-self-use
 
-    def _initialize_actors(self, config):
-        """
-        Set other_actors to the superset of all scenario actors
-        """
-        # Create the background activity of the route
-        if int(os.environ.get('DATAGEN'))==1:
-            town_amount = {
-                'Town01': 130,
-                'Town02': 60,
-                'Town03': 135,
-                'Town04': 190,
-                'Town05': 120,
-                'Town06': 155,
-                'Town07': 60,
-                'Town08': 180,
-                'Town09': 300,
-                'Town10HD': 80,
-            }
+    # def _initialize_actors(self, config):
+    #     """
+    #     Set other_actors to the superset of all scenario actors
+    #     """
+    #     # Create the background activity of the route
+    #     amount = 2
+    #     # if int(os.environ.get('DATAGEN'))==1:
+    #     #     town_amount = {
+    #     #         'Town01': 130,
+    #     #         'Town02': 60,
+    #     #         'Town03': 135,
+    #     #         'Town04': 190,
+    #     #         'Town05': 0,
+    #     #         'Town06': 155,
+    #     #         'Town07': 60,
+    #     #         'Town08': 180,
+    #     #         'Town09': 300,
+    #     #         'Town10HD': 80,
+    #     #     }
 
-            amount = town_amount[config.town] if config.town in town_amount else 0
-            amount = random.randint(amount, 2*amount)
-        else:
-            amount = 500 # use all spawn points
+    #     #     amount = town_amount[config.town] if config.town in town_amount else 0
+    #     #     amount = random.randint(amount, 2*amount)
+    #     # else:
+    #     #     amount = 500 # use all spawn points
 
-        new_actors = CarlaDataProvider.request_new_batch_actors('vehicle.*',
-                                                                amount,
-                                                                carla.Transform(),
-                                                                autopilot=True,
-                                                                random_location=True,
-                                                                rolename='background')
+    #     # TODO will need to adjust the `autopilot` setting
+    #     new_actors = CarlaDataProvider.request_new_batch_actors('vehicle.*',
+    #                                                             amount,
+    #                                                             carla.Transform(),
+    #                                                             autopilot=False,
+    #                                                             random_location=False,
+    #                                                             rolename='nonego')
 
-        if new_actors is None:
-            raise Exception("Error: Unable to add the background activity, all spawn points were occupied")
+    #     if new_actors is None:
+    #         raise Exception("Error: Unable to add the background activity, all spawn points were occupied")
 
-        for _actor in new_actors:
-            self.other_actors.append(_actor)
+    #     for _actor in new_actors:
+    #         self.other_actors.append(_actor)
 
-        # Add all the actors of the specific scenarios to self.other_actors
-        for scenario in self.list_scenarios:
-            self.other_actors.extend(scenario.other_actors)
+    #     # Add all the actors of the specific scenarios to self.other_actors
+    #     for scenario in self.list_scenarios:
+    #         self.other_actors.extend(scenario.other_actors)
 
     def _create_behavior(self):
         """

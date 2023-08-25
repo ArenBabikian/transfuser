@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<routes>
+      <route id="0" town="Town05" intersection_id="1574">
+            <waypoint x="55" y="-1.5" z="0.0"/>
+            <waypoint x="45" y="-1.5" z="0.0"/>
+            <waypoint x="30" y="5" z="0.0"/>
+            <waypoint x="28" y="18" z="0.0"/>
+            <weather id="ClearSunset" cloudiness="20.000000" precipitation="0.000000" precipitation_deposits="50.000000" wind_intensity="0.350000" sun_azimuth_angle="90.000000" sun_altitude_angle="75.000000" fog_density="0.000000" fog_distance="0.000000" fog_falloff="0.000000" wetness="0.000000"/>
+            <other_actor x="80" y="-1.5" z="0.0" model="vehicle.tesla.model3" />
+            <other_actor autopilot="" x="13" y="2.5" z="0.0" model="vehicle.tesla.model3" />
+            <other_actor autopilot="" x="13" y="6.5" z="0.0" model="vehicle.tesla.model3" /> 
+      </route>
+</routes>
+<!-- can add speed= rolename=, auopilot, yaw=, color=. See ActorConfigurationData.parse_from_node. TODO need to hack to specify opAtIntersection-->
