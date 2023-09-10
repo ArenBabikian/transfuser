@@ -15,6 +15,7 @@ import carla
 from agents.navigation.local_planner import RoadOption
 from srunner.scenarioconfigs.route_scenario_configuration import RouteScenarioConfiguration
 from srunner.scenarioconfigs.scenario_configuration import ActorConfigurationData
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 
 # TODO  check this threshold, it could be a bit larger but not so large that we cluster scenarios.
 TRIGGER_THRESHOLD = 2.0  # Threshold to say if a trigger position is new or repeated, works for matching positions
@@ -24,6 +25,7 @@ TRIGGER_ANGLE_THRESHOLD = 10  # Threshold to say if two angles can be considerin
 class IntersectionRouteConfiguration(RouteScenarioConfiguration):
 
     intersection_id = None
+    timeout = None
 
 
 class RouteParser(object):
@@ -60,6 +62,7 @@ class RouteParser(object):
 
         list_route_descriptions = []
         tree = ET.parse(route_filename)
+        MAN2ID = {'left':-1, 'straight':0, 'right':1}
         for route in tree.iter("route"):
 
             route_id = route.attrib['id']
@@ -78,9 +81,15 @@ class RouteParser(object):
             other_actors = []
             for oa in route.iter('other_actor'):
                 actor = ActorConfigurationData.parse_from_node(oa, 'missing')
+                # Addendum
+                actor.speed = float(oa.attrib.get('speed', 0))
+                actor.maneuver = MAN2ID[oa.attrib['maneuver']]
+                # TODO add end point?
+
                 other_actors.append(actor)
             new_config.other_actors = other_actors
 
+            new_config.timeout = int(route.attrib['timeout'])
 
             waypoint_list = []  # the list of waypoints that can be found on this route
             for waypoint in route.iter('waypoint'):

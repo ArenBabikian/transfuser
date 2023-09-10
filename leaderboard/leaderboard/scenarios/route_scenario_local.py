@@ -21,11 +21,12 @@ import py_trees
 import carla
 
 from agents.navigation.local_planner import RoadOption
+import srunner.tools.scenario_helper as scenario_helper
 
 # pylint: disable=line-too-long
 from srunner.scenarioconfigs.scenario_configuration import ScenarioConfiguration, ActorConfigurationData
 # pylint: enable=line-too-long
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import Idle, ScenarioTriggerer
+from srunner.scenariomanager.scenarioatomics.atomic_behaviors import Idle, ScenarioTriggerer, WaypointFollower
 from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenarios.basic_scenario import BasicScenario
 from srunner.scenarios.control_loss import ControlLoss
@@ -177,6 +178,8 @@ class RouteScenario(BasicScenario):
     along which several smaller scenarios are triggered
     """
 
+    # TODO Eventually, I should create a IntersectionTestScenario
+
     category = "RouteScenario"
 
     def __init__(self, world, config, debug_mode=0, criteria_enable=True):
@@ -186,11 +189,11 @@ class RouteScenario(BasicScenario):
         self.config = config
         self.route = None
         self.sampled_scenarios_definitions = None
+        self.world = world
 
         # PENDING
         self._update_route(world, config, debug_mode>0)
-        
-        # UNDERSTOOD
+
         ego_vehicle = self._update_ego_vehicle()
 
         # Adding the other actors is in either of the two commands below
@@ -212,6 +215,7 @@ class RouteScenario(BasicScenario):
                                             debug_mode=debug_mode>1,
                                             terminate_on_failure=False,
                                             criteria_enable=criteria_enable)
+
 
     def _update_route(self, world, config, debug_mode):
         """
@@ -240,7 +244,10 @@ class RouteScenario(BasicScenario):
         self.sampled_scenarios_definitions = self._scenario_sampling(potential_scenarios_definitions)
 
         # Timeout of scenario in seconds
-        self.timeout = self._estimate_route_timeout()
+        if config.timeout:
+            self.timeout = config.timeout
+        else:
+            self.timeout = self._estimate_route_timeout()
 
         # Print route in debug mode
         if debug_mode:
@@ -254,7 +261,7 @@ class RouteScenario(BasicScenario):
         elevate_transform = self.route[0][0]
         elevate_transform.location.z += 0.5
 
-        ego_vehicle = CarlaDataProvider.request_new_actor('vehicle.lincoln.mkz2017',
+        ego_vehicle = CarlaDataProvider.request_new_actor('vehicle.tesla.model3',
                                                           elevate_transform,
                                                           rolename='hero')
 
@@ -449,48 +456,20 @@ class RouteScenario(BasicScenario):
 
     # pylint: enable=no-self-use
 
-    # def _initialize_actors(self, config):
-    #     """
-    #     Set other_actors to the superset of all scenario actors
-    #     """
-    #     # Create the background activity of the route
-    #     amount = 2
-    #     # if int(os.environ.get('DATAGEN'))==1:
-    #     #     town_amount = {
-    #     #         'Town01': 130,
-    #     #         'Town02': 60,
-    #     #         'Town03': 135,
-    #     #         'Town04': 190,
-    #     #         'Town05': 0,
-    #     #         'Town06': 155,
-    #     #         'Town07': 60,
-    #     #         'Town08': 180,
-    #     #         'Town09': 300,
-    #     #         'Town10HD': 80,
-    #     #     }
+    
+    def _initialize_actors(self, config):
+        """
+        Default initialization of other actors.
+        Override this method in child class to provide custom initialization.
+        """
+        if config.other_actors:
+            new_actors = CarlaDataProvider.request_new_actors(config.other_actors)
+            if not new_actors:
+                raise Exception("Error: Unable to add actors")
 
-    #     #     amount = town_amount[config.town] if config.town in town_amount else 0
-    #     #     amount = random.randint(amount, 2*amount)
-    #     # else:
-    #     #     amount = 500 # use all spawn points
+            for new_actor in new_actors:
+                self.other_actors.append(new_actor)
 
-    #     # TODO will need to adjust the `autopilot` setting
-    #     new_actors = CarlaDataProvider.request_new_batch_actors('vehicle.*',
-    #                                                             amount,
-    #                                                             carla.Transform(),
-    #                                                             autopilot=False,
-    #                                                             random_location=False,
-    #                                                             rolename='nonego')
-
-    #     if new_actors is None:
-    #         raise Exception("Error: Unable to add the background activity, all spawn points were occupied")
-
-    #     for _actor in new_actors:
-    #         self.other_actors.append(_actor)
-
-    #     # Add all the actors of the specific scenarios to self.other_actors
-    #     for scenario in self.list_scenarios:
-    #         self.other_actors.extend(scenario.other_actors)
 
     def _create_behavior(self):
         """
@@ -532,10 +511,53 @@ class RouteScenario(BasicScenario):
         )
 
         subbehavior.add_child(scenario_triggerer)  # make ScenarioTriggerer the first thing to be checked
-        subbehavior.add_children(scenario_behaviors)
+
+        ########################
+        # Add other_actor behavior here
+        # for actor in self.config.other_actors:
+        for i, actor in enumerate(self.other_actors):
+
+            config = self.config.other_actors[i]
+
+            # get starting pos
+            starting_wp = CarlaDataProvider.get_map().get_waypoint(config.transform.location)
+
+            # get path with assigned behavior
+            plan, tgt_wp = scenario_helper.generate_target_waypoint_list(starting_wp, turn=config.maneuver)
+
+            # TODO maybe need to get DENSE path
+
+            actor_behavior = py_trees.composites.Sequence()
+
+            wpfoll_behavior = WaypointFollower(actor, config.speed, plan=plan, avoid_collision=False)
+
+            if True:
+                list_of_wps = [(t[0].transform, t[1]) for t in plan]
+                self._draw_waypoints(self.world, list_of_wps, vertical_shift=1.0, persistency=50000.0)
+
+
+            actor_behavior.add_child(wpfoll_behavior)
+            actor_behavior.add_child(WaypointFollower(actor, config.speed, avoid_collision=False))
+
+            subbehavior.add_child(actor_behavior)
+
+            # gives ony end point
+            # wp = scenario_helper.generate_target_waypoint(starting_wp)
+
+            # print this
+
+
+            # self.other_actors()
+
+        # exit()
+
+        # NOTE BELOW IS IRRELEVANT
+        # subbehavior.add_children(scenario_behaviors)
+
         subbehavior.add_child(Idle())  # The behaviours cannot make the route scenario stop
         behavior.add_child(subbehavior)
         return behavior
+
 
     def _create_test_criteria(self):
         """
