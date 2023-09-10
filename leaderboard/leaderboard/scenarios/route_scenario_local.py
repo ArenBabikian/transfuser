@@ -21,6 +21,7 @@ import py_trees
 import carla
 
 from agents.navigation.local_planner import RoadOption
+from leaderboard.autoagents.dummy_agent import DummyAgent
 import srunner.tools.scenario_helper as scenario_helper
 
 # pylint: disable=line-too-long
@@ -191,13 +192,15 @@ class RouteScenario(BasicScenario):
         self.sampled_scenarios_definitions = None
         self.world = world
 
-        # PENDING
+        # NOTE Derives dense route for ego_vehicle
         self._update_route(world, config, debug_mode>0)
 
+        # NOTE ego_vehicle creation below
         ego_vehicle = self._update_ego_vehicle()
 
         # Adding the other actors is in either of the two commands below
         # List of scenario object instances, each object is a type of scenario, witj (potentially) conditional behaviors
+        # NOTE Does not get in here, since we are not using "scenario" files
         self.list_scenarios = self._build_scenario_instances(world,
                                                              ego_vehicle,
                                                              self.sampled_scenarios_definitions,
@@ -205,9 +208,7 @@ class RouteScenario(BasicScenario):
                                                              timeout=self.timeout,
                                                              debug_mode=debug_mode>1)
 
-        # BIG HACK HERE
-        # I might be able to disregard the bove command entirely, just create other_actors manually, then assign a maneuevr_at_intersection without having to creaet a XXXScenario Object
-
+        # NOTE most of the magic happens below
         super(RouteScenario, self).__init__(name=config.name,
                                             ego_vehicles=[ego_vehicle],
                                             config=config,
@@ -226,10 +227,16 @@ class RouteScenario(BasicScenario):
         - config: Scenario configuration (RouteConfiguration)
         """
 
+        # TEMPORARY : Below needed only for if we dont wanna load Transfuser agents
+        # config.agent = DummyAgent('')
+
         # Transform the scenario file into a dictionary
         world_annotations = RouteParser.parse_annotations_file(config.scenario_file)
 
-        # prepare route's trajectory (interpolate and add the GPS route)
+        # prepare route's dense trajectory (interpolate and add the GPS route)
+        # print('--------------------')
+        # print('INPUT')
+        # print(config.trajectory)
         gps_route, route = interpolate_trajectory(world, config.trajectory)
 
         potential_scenarios_definitions, _ = RouteParser.scan_route_for_scenarios(
@@ -251,6 +258,8 @@ class RouteScenario(BasicScenario):
 
         # Print route in debug mode
         if debug_mode:
+            # print('OUTPUT')
+            # print(self.route)
             self._draw_waypoints(world, self.route, vertical_shift=1.0, persistency=50000.0)
 
     def _update_ego_vehicle(self):
@@ -501,7 +510,8 @@ class RouteScenario(BasicScenario):
                         behaviour=scenario.scenario.behavior)
                     scenario_behaviors.append(oneshot_idiom)
 
-        # Add behavior that manages the scenarios trigger conditions
+        # Add ego_vehicle behavior that manages the scenarios trigger conditions
+        # This is doing a lot of extra stuff,, like handling trigger conditions, that we dont need
         scenario_triggerer = ScenarioTriggerer(
             self.ego_vehicles[0],
             self.route,
@@ -515,29 +525,59 @@ class RouteScenario(BasicScenario):
         ########################
         # Add other_actor behavior here
         # for actor in self.config.other_actors:
+        get_waypoint = CarlaDataProvider.get_map().get_waypoint
         for i, actor in enumerate(self.other_actors):
 
+            # STEP 0 : Set up
             config = self.config.other_actors[i]
+            starting_wp = get_waypoint(config.transform.location)
+            starting_loc = starting_wp.transform.location
 
-            # get starting pos
-            starting_wp = CarlaDataProvider.get_map().get_waypoint(config.transform.location)
+            # STEP 1 : get path part 1 (actor reaches intersection, then performs maneuver)
+            # post_man_wp = scenario_helper.generate_target_waypoint(starting_wp, turn=config.maneuver)
+            coarse_plan, post_man_wp = scenario_helper.generate_target_waypoint_list(starting_wp, turn=config.maneuver)
+            post_man_loc = post_man_wp.transform.location
+            plan_to_draw = [(t[0].transform, t[1]) for t in coarse_plan]
+            # print('-----------------')
+            # print('COARSE_PLAN')
+            # print(coarse_plan)
 
-            # get path with assigned behavior
-            plan, tgt_wp = scenario_helper.generate_target_waypoint_list(starting_wp, turn=config.maneuver)
+            # STEP 2 : drive for some distance after completing maneuver
+            final_wp, _ = scenario_helper.get_waypoint_in_distance(post_man_wp, 5)
+            final_loc = final_wp.transform.location
+            plan_to_draw.append((final_wp.transform, RoadOption.LANEFOLLOW))
 
-            # TODO maybe need to get DENSE path
+            # STEP 3 : Derive the dense path, and get a plan from that
+            very_coarse_path = [starting_loc, post_man_loc, final_loc]
+            # print('INPUT')
+            # print(very_coarse_path)
+            _, dense_route = interpolate_trajectory(self.world, very_coarse_path)
+            plan_to_draw=dense_route
+            plan = [(get_waypoint(point[0].location), point[1]) for point in dense_route]
+
+            # print('OUTPUT (ROUTE)')
+            # print(dense_route)
+            # print('OFFICIAL PLAN')
+            # print(plan)
+
+            # STEP TODO : Maybe we want to specify a different speed for inside and outside intersection
+            # we find path until intersection (using generate_target_waypoint_in_route),
+            # then find path inside intersection
+            # For ach kind of segment, we create a new WaypointFollower behavior, with a different speed
+            # Speed can be given in .xml or can be default
+
+            # STEP TODO : Futur challenge is to not use the center of the lane
+            # maybe ask non-ego to drive near the lane edge.
+            # No idea where to start for this 
 
             actor_behavior = py_trees.composites.Sequence()
-
             wpfoll_behavior = WaypointFollower(actor, config.speed, plan=plan, avoid_collision=False)
 
             if True:
-                list_of_wps = [(t[0].transform, t[1]) for t in plan]
-                self._draw_waypoints(self.world, list_of_wps, vertical_shift=1.0, persistency=50000.0)
-
+                self._draw_waypoints(self.world, plan_to_draw, vertical_shift=1.0, persistency=50000.0)
 
             actor_behavior.add_child(wpfoll_behavior)
-            actor_behavior.add_child(WaypointFollower(actor, config.speed, avoid_collision=False))
+            actor_behavior.add_child(WaypointFollower(actor, 5, avoid_collision=False)) # 5 = Slow
 
             subbehavior.add_child(actor_behavior)
 

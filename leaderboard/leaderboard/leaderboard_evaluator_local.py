@@ -23,6 +23,7 @@ import pkg_resources
 import sys
 import carla
 import signal
+from leaderboard.autoagents.dummy_agent import DummyAgent
 
 from srunner.scenariomanager.carla_data_provider import *
 from srunner.scenariomanager.timer import GameTime
@@ -321,6 +322,8 @@ class LeaderboardEvaluator(object):
         ############################################################
 
         print("\033[1m> Loading the world\033[0m")
+        # # Below replaces the Transfuser agent
+        # self.agent_instance = DummyAgent('')
 
         # Load the world and the scenario
         # IMPORTANT
