@@ -24,8 +24,11 @@ TRIGGER_ANGLE_THRESHOLD = 10  # Threshold to say if two angles can be considerin
 
 class IntersectionRouteConfiguration(RouteScenarioConfiguration):
 
+    # TODO evenntually, this could possibly be a subuclass of (ScenarioConfiguration) directly
+
     intersection_id = None
     timeout = None
+    ego_spec = None
 
 
 class RouteParser(object):
@@ -77,7 +80,8 @@ class RouteParser(object):
 
             new_config.intersection_id = route.attrib['intersection_id']
 
-            # ADDED TODO
+            # ADDED
+            # non-ego behavior
             other_actors = []
             for oa in route.iter('other_actor'):
                 actor = ActorConfigurationData.parse_from_node(oa, 'missing')
@@ -91,13 +95,25 @@ class RouteParser(object):
 
             new_config.timeout = int(route.attrib['timeout'])
 
-            waypoint_list = []  # the list of waypoints that can be found on this route
-            for waypoint in route.iter('waypoint'):
-                waypoint_list.append(carla.Location(x=float(waypoint.attrib['x']),
-                                                    y=float(waypoint.attrib['y']),
-                                                    z=float(waypoint.attrib['z'])))
+            # ego behavior
+            all_waypoints = list(route.iter('waypoint'))
+            assert len(all_waypoints) == 1
 
-            new_config.trajectory = waypoint_list
+            ego_node = all_waypoints[0]
+            ego_spec = ActorConfigurationData.parse_from_node(ego_node, 'ego')
+            ego_spec.maneuver = MAN2ID[ego_node.attrib['maneuver']]
+            new_config.ego_spec = ego_spec
+
+            # END ADDED
+
+            # # We do not need the trajectory below
+            # waypoint_list = []  # the list of waypoints that can be found on this route
+            # for waypoint in route.iter('waypoint'):
+            #     waypoint_list.append(carla.Location(x=float(waypoint.attrib['x']),
+            #                                         y=float(waypoint.attrib['y']),
+            #                                         z=float(waypoint.attrib['z'])))
+
+            # new_config.trajectory = waypoint_list
 
             list_route_descriptions.append(new_config)
 

@@ -237,7 +237,12 @@ class RouteScenario(BasicScenario):
         # print('--------------------')
         # print('INPUT')
         # print(config.trajectory)
-        gps_route, route = interpolate_trajectory(world, config.trajectory)
+
+        # below is replaced: now, we are only giving initial position and maneuver for ego, and we interpolate the path from that
+        # gps_route, route = interpolate_trajectory(world, config.trajectory)
+        wp = CarlaDataProvider.get_map().get_waypoint(config.ego_spec.transform.location)
+        gps_route, route = self.get_dense_path(wp, config.ego_spec.maneuver)
+        config.trajectory = [point[0].location for point in route]
 
         potential_scenarios_definitions, _ = RouteParser.scan_route_for_scenarios(
             config.town, route, world_annotations)
@@ -245,6 +250,7 @@ class RouteScenario(BasicScenario):
         self.route = route
         CarlaDataProvider.set_ego_vehicle_route(convert_transform_to_location(self.route))
 
+        # Downsampling happens below
         config.agent.set_global_plan(gps_route, self.route)
 
         # Sample the scenarios to be used for this route instance.
@@ -479,6 +485,48 @@ class RouteScenario(BasicScenario):
             for new_actor in new_actors:
                 self.other_actors.append(new_actor)
 
+    def get_dense_path(self, starting_wp, maneuver):
+
+        # TODO take location as input and transform to wp in here
+        
+        starting_loc = starting_wp.transform.location
+
+        # STEP 1 : get path part 1 (actor reaches intersection, then performs maneuver)
+        # post_man_wp = scenario_helper.generate_target_waypoint(starting_wp, turn=config.maneuver)
+        coarse_plan, post_man_wp = scenario_helper.generate_target_waypoint_list(starting_wp, turn=maneuver)
+        post_man_loc = post_man_wp.transform.location
+        plan_to_draw = [(t[0].transform, t[1]) for t in coarse_plan]
+        # print('-----------------')
+        # print('COARSE_PLAN')
+        # print(coarse_plan)
+        # print(post_man_loc)
+
+        # STEP 2 : drive for some distance after completing maneuver
+        final_wp, _ = scenario_helper.get_waypoint_in_distance(post_man_wp, 5)
+        final_loc = final_wp.transform.location
+        plan_to_draw.append((final_wp.transform, RoadOption.LANEFOLLOW))
+
+        # STEP 3 : Derive the dense path, and get a plan from that
+        very_coarse_path = [starting_loc, post_man_loc, final_loc]
+        # print('INPUT')
+        # print(very_coarse_path)
+
+        gps_dense_path, dense_path = interpolate_trajectory(self.world, very_coarse_path)
+        # print('OUTPUT (ROUTE)')
+        # print(dense_path)
+
+        return gps_dense_path, dense_path
+
+        # STEP TODO : Maybe we want to specify a different speed for inside and outside intersection
+        # we find path until intersection (using generate_target_waypoint_in_route),
+        # then find path inside intersection
+        # For ach kind of segment, we create a new WaypointFollower behavior, with a different speed
+        # Speed can be given in .xml or can be default
+
+        # STEP TODO : Futur challenge is to not use the center of the lane
+        # maybe ask non-ego to drive near the lane edge.
+        # No idea where to start for this 
+
 
     def _create_behavior(self):
         """
@@ -494,6 +542,7 @@ class RouteScenario(BasicScenario):
         scenario_behaviors = []
         blackboard_list = []
 
+        # Does not go in here, since we are not working with scenario files
         for i, scenario in enumerate(self.list_scenarios):
             if scenario.scenario.behavior is not None:
                 route_var_name = scenario.config.route_var_name
@@ -531,44 +580,12 @@ class RouteScenario(BasicScenario):
             # STEP 0 : Set up
             config = self.config.other_actors[i]
             starting_wp = get_waypoint(config.transform.location)
-            starting_loc = starting_wp.transform.location
 
-            # STEP 1 : get path part 1 (actor reaches intersection, then performs maneuver)
-            # post_man_wp = scenario_helper.generate_target_waypoint(starting_wp, turn=config.maneuver)
-            coarse_plan, post_man_wp = scenario_helper.generate_target_waypoint_list(starting_wp, turn=config.maneuver)
-            post_man_loc = post_man_wp.transform.location
-            plan_to_draw = [(t[0].transform, t[1]) for t in coarse_plan]
-            # print('-----------------')
-            # print('COARSE_PLAN')
-            # print(coarse_plan)
-
-            # STEP 2 : drive for some distance after completing maneuver
-            final_wp, _ = scenario_helper.get_waypoint_in_distance(post_man_wp, 5)
-            final_loc = final_wp.transform.location
-            plan_to_draw.append((final_wp.transform, RoadOption.LANEFOLLOW))
-
-            # STEP 3 : Derive the dense path, and get a plan from that
-            very_coarse_path = [starting_loc, post_man_loc, final_loc]
-            # print('INPUT')
-            # print(very_coarse_path)
-            _, dense_route = interpolate_trajectory(self.world, very_coarse_path)
+            _, dense_route = self.get_dense_path(starting_wp, config.maneuver)
             plan_to_draw=dense_route
             plan = [(get_waypoint(point[0].location), point[1]) for point in dense_route]
-
-            # print('OUTPUT (ROUTE)')
-            # print(dense_route)
             # print('OFFICIAL PLAN')
             # print(plan)
-
-            # STEP TODO : Maybe we want to specify a different speed for inside and outside intersection
-            # we find path until intersection (using generate_target_waypoint_in_route),
-            # then find path inside intersection
-            # For ach kind of segment, we create a new WaypointFollower behavior, with a different speed
-            # Speed can be given in .xml or can be default
-
-            # STEP TODO : Futur challenge is to not use the center of the lane
-            # maybe ask non-ego to drive near the lane edge.
-            # No idea where to start for this 
 
             actor_behavior = py_trees.composites.Sequence()
             wpfoll_behavior = WaypointFollower(actor, config.speed, plan=plan, avoid_collision=False)
@@ -581,17 +598,7 @@ class RouteScenario(BasicScenario):
 
             subbehavior.add_child(actor_behavior)
 
-            # gives ony end point
-            # wp = scenario_helper.generate_target_waypoint(starting_wp)
-
-            # print this
-
-
-            # self.other_actors()
-
-        # exit()
-
-        # NOTE BELOW IS IRRELEVANT
+        # NOTE below is irrelevant for us
         # subbehavior.add_children(scenario_behaviors)
 
         subbehavior.add_child(Idle())  # The behaviours cannot make the route scenario stop

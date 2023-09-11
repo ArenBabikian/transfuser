@@ -8,7 +8,7 @@ export CARLA_SERVER=${CARLA_ROOT}/CarlaUE4.sh
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla
 # BELOW is commented because we wanna use the carla API downloaded by pip
-# export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg
+export PYTHONPATH=$PYTHONPATH:$CARLA_ROOT/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg
 export SCENARIO_RUNNER_ROOT=${WORK_DIR}/scenario_runner
 export LEADERBOARD_ROOT=${WORK_DIR}/leaderboard
 # export PYTHONPATH="${CARLA_ROOT}/PythonAPI/carla/":"${SCENARIO_RUNNER_ROOT}":"${LEADERBOARD_ROOT}":${PYTHONPATH}
@@ -27,7 +27,7 @@ export CHECKPOINT_ENDPOINT=${SAVE_DIR}/${TIME}.json
 export TEAM_AGENT=${WORK_DIR}/team_code_transfuser/submission_agent.py
 export TEAM_CONFIG=${WORK_DIR}/model_ckpt/models_2022/transfuser
 
-export DEBUG_CHALLENGE=1
+export DEBUG_CHALLENGE=0
 # 0 does not work, needs to be emmpty
 export RESUME=
 export DATAGEN=0
