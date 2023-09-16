@@ -365,6 +365,8 @@ class LeaderboardEvaluator(object):
             self._cleanup()
             sys.exit(-1)
 
+        ############################################################
+
         print("\033[1m> Running the route\033[0m")
 
         # Run the scenario

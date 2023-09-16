@@ -54,6 +54,10 @@ ROUTESCENARIO = ["RouteScenario"]
 SECONDS_GIVEN_PER_METERS = 0.8
 INITIAL_SECONDS_DELAY = 5.0
 
+SLOWSPEED = 5
+SPEED_TRANSFUSER_IN_JUNCTION = 3
+SPEED_TRANSFUSER_OUT_JUNCTION = 4
+
 NUMBER_CLASS_TRANSLATION = {
     "Scenario1": ControlLoss,
     "Scenario2": FollowLeadingVehicle,
@@ -191,6 +195,7 @@ class RouteScenario(BasicScenario):
         self.route = None
         self.sampled_scenarios_definitions = None
         self.world = world
+        self.debug = debug_mode>0
 
         # NOTE Derives dense route for ego_vehicle
         self._update_route(world, config, debug_mode>0)
@@ -241,7 +246,9 @@ class RouteScenario(BasicScenario):
         # below is replaced: now, we are only giving initial position and maneuver for ego, and we interpolate the path from that
         # gps_route, route = interpolate_trajectory(world, config.trajectory)
         wp = CarlaDataProvider.get_map().get_waypoint(config.ego_spec.transform.location)
-        gps_route, route = self.get_dense_path(wp, config.ego_spec.maneuver)
+        gps_route, routes = self.get_dense_path(wp, config.ego_spec.maneuver)
+        assert len(routes) == 1
+        route = routes[0]
         config.trajectory = [point[0].location for point in route]
 
         potential_scenarios_definitions, _ = RouteParser.scan_route_for_scenarios(
@@ -485,7 +492,7 @@ class RouteScenario(BasicScenario):
             for new_actor in new_actors:
                 self.other_actors.append(new_actor)
 
-    def get_dense_path(self, starting_wp, maneuver):
+    def get_dense_path(self, starting_wp, maneuver, split_path = False):
 
         # TODO take location as input and transform to wp in here
         
@@ -493,8 +500,9 @@ class RouteScenario(BasicScenario):
 
         # STEP 1 : get path part 1 (actor reaches intersection, then performs maneuver)
         # post_man_wp = scenario_helper.generate_target_waypoint(starting_wp, turn=config.maneuver)
-        coarse_plan, post_man_wp = scenario_helper.generate_target_waypoint_list(starting_wp, turn=maneuver)
+        coarse_plan, post_man_wp, pre_junc_wp = scenario_helper.generate_target_waypoint_list(starting_wp, turn=maneuver)
         post_man_loc = post_man_wp.transform.location
+        pre_junc_loc = pre_junc_wp.transform.location
         plan_to_draw = [(t[0].transform, t[1]) for t in coarse_plan]
         # print('-----------------')
         # print('COARSE_PLAN')
@@ -507,21 +515,32 @@ class RouteScenario(BasicScenario):
         plan_to_draw.append((final_wp.transform, RoadOption.LANEFOLLOW))
 
         # STEP 3 : Derive the dense path, and get a plan from that
-        very_coarse_path = [starting_loc, post_man_loc, final_loc]
-        # print('INPUT')
-        # print(very_coarse_path)
+        if split_path:
+            # STEP 3.2: derive 3 subpaths
+            if pre_junc_loc != None:
+                coarse_path_1 = [starting_loc, pre_junc_loc]
+                _, dense_path_1 = interpolate_trajectory(self.world, coarse_path_1)
+            else:
+                dense_path_1 = None
 
-        gps_dense_path, dense_path = interpolate_trajectory(self.world, very_coarse_path)
-        # print('OUTPUT (ROUTE)')
-        # print(dense_path)
+            coarse_path_2 = [pre_junc_loc, post_man_loc]
+            _, dense_path_2 = interpolate_trajectory(self.world, coarse_path_2)
 
-        return gps_dense_path, dense_path
+            coarse_path_3 = [post_man_loc, final_loc]
+            _, dense_path_3 = interpolate_trajectory(self.world, coarse_path_3)
 
-        # STEP TODO : Maybe we want to specify a different speed for inside and outside intersection
-        # we find path until intersection (using generate_target_waypoint_in_route),
-        # then find path inside intersection
-        # For ach kind of segment, we create a new WaypointFollower behavior, with a different speed
-        # Speed can be given in .xml or can be default
+            return None, [dense_path_1, dense_path_2, dense_path_3]
+        else:
+            # STEP 3.1: derive a single path        
+            very_coarse_path = [starting_loc, post_man_loc, final_loc]
+            # print('INPUT')
+            # print(very_coarse_path)
+
+            gps_dense_path, dense_path = interpolate_trajectory(self.world, very_coarse_path)
+            # print('OUTPUT (ROUTE)')
+            # print(dense_path)
+
+            return gps_dense_path, [dense_path]
 
         # STEP TODO : Futur challenge is to not use the center of the lane
         # maybe ask non-ego to drive near the lane edge.
@@ -574,27 +593,62 @@ class RouteScenario(BasicScenario):
         ########################
         # Add other_actor behavior here
         # for actor in self.config.other_actors:
-        get_waypoint = CarlaDataProvider.get_map().get_waypoint
         for i, actor in enumerate(self.other_actors):
 
             # STEP 0 : Set up
             config = self.config.other_actors[i]
-            starting_wp = get_waypoint(config.transform.location)
+            starting_wp = CarlaDataProvider.get_map().get_waypoint(config.transform.location)
 
-            _, dense_route = self.get_dense_path(starting_wp, config.maneuver)
-            plan_to_draw=dense_route
-            plan = [(get_waypoint(point[0].location), point[1]) for point in dense_route]
+            _, dense_routes = self.get_dense_path(starting_wp, config.maneuver, config.speed == 'transfuser')
             # print('OFFICIAL PLAN')
             # print(plan)
 
             actor_behavior = py_trees.composites.Sequence()
-            wpfoll_behavior = WaypointFollower(actor, config.speed, plan=plan, avoid_collision=False)
 
-            if True:
-                self._draw_waypoints(self.world, plan_to_draw, vertical_shift=1.0, persistency=50000.0)
+            # STEP 1 : Derive the plans
+            if config.speed == 'transfuser':
+                assert len(dense_routes) == 3
+                # handle 3 SUBPLANS
+                # 3m/s inside junction
+                # 4m/s outside junction
 
-            actor_behavior.add_child(wpfoll_behavior)
-            actor_behavior.add_child(WaypointFollower(actor, 5, avoid_collision=False)) # 5 = Slow
+                if dense_routes[0] != None:
+                    plan_1 = self.route2plan(dense_routes[0])
+                    wpfoll_1 = WaypointFollower(actor, SPEED_TRANSFUSER_OUT_JUNCTION, plan=plan_1, avoid_collision=False)
+                    actor_behavior.add_child(wpfoll_1)
+
+                plan_2 = self.route2plan(dense_routes[1])
+                wpfoll_2 = WaypointFollower(actor, SPEED_TRANSFUSER_IN_JUNCTION, plan=plan_2, avoid_collision=False)
+                actor_behavior.add_child(wpfoll_2)
+
+                plan_3 = self.route2plan(dense_routes[2])
+                wpfoll_3 = WaypointFollower(actor, SPEED_TRANSFUSER_IN_JUNCTION, plan=plan_3, avoid_collision=False)
+                actor_behavior.add_child(wpfoll_3)
+
+                if self.debug:
+                    self._draw_waypoints(self.world, dense_routes[0], vertical_shift=1.0, persistency=50000.0)
+                    wp_mid_1 = dense_routes[0][-1][0].location + carla.Location(z=1)
+                    self.world.debug.draw_point(wp_mid_1, size=0.3, color=carla.Color(255, 0, 0), life_time=50000)
+                    self._draw_waypoints(self.world, dense_routes[1], vertical_shift=1.0, persistency=50000.0)
+                    wp_mid_2 = dense_routes[1][-1][0].location + carla.Location(z=1)
+                    self.world.debug.draw_point(wp_mid_2, size=0.3, color=carla.Color(255, 0, 0), life_time=50000)
+                    self._draw_waypoints(self.world, dense_routes[2], vertical_shift=1.0, persistency=50000.0)
+
+            else:
+                # assign the same speed to the SINGLE PLAN
+                assert len(dense_routes) == 1
+                dense_route = dense_routes[0]
+                plan_to_draw=dense_route
+                plan = self.route2plan(dense_route)
+
+                wpfoll_behavior = WaypointFollower(actor, float(config.speed), plan=plan, avoid_collision=False)
+                actor_behavior.add_child(wpfoll_behavior)
+
+                if self.debug:
+                    self._draw_waypoints(self.world, plan_to_draw, vertical_shift=1.0, persistency=50000.0)
+
+            # STEP 2 : add post-post-junction subpath behavior
+            actor_behavior.add_child(WaypointFollower(actor, SLOWSPEED, avoid_collision=False))
 
             subbehavior.add_child(actor_behavior)
 
@@ -604,6 +658,10 @@ class RouteScenario(BasicScenario):
         subbehavior.add_child(Idle())  # The behaviours cannot make the route scenario stop
         behavior.add_child(subbehavior)
         return behavior
+    
+    def route2plan(self, dense_route):
+        get_waypoint = CarlaDataProvider.get_map().get_waypoint
+        return [(get_waypoint(point[0].location), point[1]) for point in dense_route]
 
 
     def _create_test_criteria(self):
@@ -612,7 +670,7 @@ class RouteScenario(BasicScenario):
         criteria = []
         route = convert_transform_to_location(self.route)
 
-        collision_criterion = CollisionTest(self.ego_vehicles[0], terminate_on_failure=False)
+        collision_criterion = CollisionTest(self.ego_vehicles[0], terminate_on_failure=True)
 
         route_criterion = InRouteTest(self.ego_vehicles[0],
                                       route=route,

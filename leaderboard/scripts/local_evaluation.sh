@@ -1,8 +1,8 @@
 # export CARLA_ROOT=${1:-/home/kchitta/Documents/CARLA_0.9.10.1}
 # export WORK_DIR=${2:-/home/kchitta/Documents/transfuser}
 
-export CARLA_ROOT=/home/ubuntu/aren/transfuser/carla
-export WORK_DIR=/home/ubuntu/aren/transfuser
+export CARLA_ROOT=/home/ubuntu/git/transfuser/carla
+export WORK_DIR=/home/ubuntu/git/transfuser
 
 export CARLA_SERVER=${CARLA_ROOT}/CarlaUE4.sh
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI
@@ -18,7 +18,7 @@ export SAVE_DIR=${LEADERBOARD_ROOT}/aren/res
 export DATA_DIR=${LEADERBOARD_ROOT}/aren/data2
 # Modify below
 export SCENARIOS=${DATA_DIR}/empty_scenarios.json
-export ROUTES=${DATA_DIR}/town02_r1.xml
+export ROUTES=${DATA_DIR}/generated0-test.xml
 
 export REPETITIONS=1
 export CHALLENGE_TRACK_CODENAME=SENSORS
@@ -27,7 +27,7 @@ export CHECKPOINT_ENDPOINT=${SAVE_DIR}/${TIME}.json
 export TEAM_AGENT=${WORK_DIR}/team_code_transfuser/submission_agent.py
 export TEAM_CONFIG=${WORK_DIR}/model_ckpt/models_2022/transfuser
 
-export DEBUG_CHALLENGE=0
+export DEBUG_CHALLENGE=1
 # 0 does not work, needs to be emmpty
 export RESUME=
 export DATAGEN=0
@@ -45,4 +45,4 @@ python3 ${LEADERBOARD_ROOT}/leaderboard/leaderboard_evaluator_local.py \
 --debug=${DEBUG_CHALLENGE} \
 --resume=${RESUME} \
 --record=${RECORD} \
---timeout=30 \
+--timeout=60 \

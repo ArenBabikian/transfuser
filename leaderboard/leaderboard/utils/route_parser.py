@@ -86,7 +86,7 @@ class RouteParser(object):
             for oa in route.iter('other_actor'):
                 actor = ActorConfigurationData.parse_from_node(oa, 'missing')
                 # Addendum
-                actor.speed = float(oa.attrib.get('speed', 0))
+                actor.speed = oa.attrib.get('speed', 0)
                 actor.maneuver = MAN2ID[oa.attrib['maneuver']]
                 # TODO add end point?
 

@@ -230,9 +230,16 @@ def generate_target_waypoint_list(waypoint, turn=0):
     reached_junction = False
     threshold = math.radians(0.1)
     plan = []
+    wp_before_junction = None
+    found_wp_before_junction = False
     while True:
         wp_choice = waypoint.next(2)
         if len(wp_choice) > 1:
+            if not found_wp_before_junction:
+                if len(plan) > 1:
+                    wp_before_junction = plan[-1][0]
+                else:
+                    wp_before_junction = None
             reached_junction = True
             waypoint = choose_at_junction(waypoint, wp_choice, turn)
         else:
@@ -253,7 +260,7 @@ def generate_target_waypoint_list(waypoint, turn=0):
         elif reached_junction and not plan[-1][0].is_intersection:
             break
 
-    return plan, plan[-1][0]
+    return plan, plan[-1][0], wp_before_junction
 
 
 def generate_target_waypoint_list_multilane(waypoint, change='left',
