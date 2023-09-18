@@ -221,7 +221,7 @@ def get_waypoint_in_distance(waypoint, distance):
     return waypoint, traveled_distance
 
 
-def generate_target_waypoint_list(waypoint, turn=0):
+def generate_target_waypoint_list(waypoint, pre_junc_wp, intersection_id, turn=0):
     """
     This method follow waypoints to a junction and choose path based on turn input.
     Turn input: LEFT -> -1, RIGHT -> 1, STRAIGHT -> 0
@@ -232,32 +232,48 @@ def generate_target_waypoint_list(waypoint, turn=0):
     plan = []
     wp_before_junction = None
     found_wp_before_junction = False
+
+    # is the starting_wp inside the junction already?
+    wp_initially_in_junc = waypoint.is_junction and waypoint.junction_id == int(intersection_id)
+    if wp_initially_in_junc:
+        waypoint = pre_junc_wp
+
     while True:
         wp_choice = waypoint.next(2)
-        if len(wp_choice) > 1:
+        wp_in_corr_intersection = [wp.is_junction and wp.junction_id == int(intersection_id) for wp in wp_choice]
+        in_corr_intersection = any(wp_in_corr_intersection)
+        # if len(wp_choice) > 1: # Previously. BUG when only 1 path through intersection
+        if in_corr_intersection:
+            # We have found the intersection
             if not found_wp_before_junction:
                 if len(plan) > 1:
                     wp_before_junction = plan[-1][0]
                 else:
                     wp_before_junction = None
+                found_wp_before_junction = True
             reached_junction = True
             waypoint = choose_at_junction(waypoint, wp_choice, turn)
         else:
-            waypoint = wp_choice[0]
+            if len(wp_choice) > 1:
+                waypoint = choose_at_junction(waypoint, wp_choice, 0)
+            else:
+                waypoint = wp_choice[0]
         plan.append((waypoint, RoadOption.LANEFOLLOW))
         #   End condition for the behavior
-        if turn != 0 and reached_junction and len(plan) >= 3:
-            v_1 = vector(
-                plan[-2][0].transform.location,
-                plan[-1][0].transform.location)
-            v_2 = vector(
-                plan[-3][0].transform.location,
-                plan[-2][0].transform.location)
-            angle_wp = math.acos(
-                np.dot(v_1, v_2) / abs((np.linalg.norm(v_1) * np.linalg.norm(v_2))))
-            if angle_wp < threshold:
-                break
-        elif reached_junction and not plan[-1][0].is_intersection:
+        # if turn != 0 and reached_junction and len(plan) >= 3:
+        #     v_1 = vector(
+        #         plan[-2][0].transform.location,
+        #         plan[-1][0].transform.location)
+        #     v_2 = vector(
+        #         plan[-3][0].transform.location,
+        #         plan[-2][0].transform.location)
+        #     angle_wp = math.acos(
+        #         np.dot(v_1, v_2) / abs((np.linalg.norm(v_1) * np.linalg.norm(v_2))))
+        #     if angle_wp < threshold:
+        #         break
+        # elif reached_junction and not plan[-1][0].is_intersection:
+        #     break
+        if reached_junction and not plan[-1][0].is_intersection:
             break
 
     return plan, plan[-1][0], wp_before_junction

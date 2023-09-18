@@ -19,7 +19,7 @@ class ActorConfigurationData(object):
     """
 
     def __init__(self, model, transform, rolename='other', speed=0, autopilot=False,
-                 random=False, color=None, category="car", args=None):
+                 random=False, color=None, category="car", args=None, pre_transform=None):
         self.model = model
         self.rolename = rolename
         self.transform = transform
@@ -29,6 +29,7 @@ class ActorConfigurationData(object):
         self.color = color
         self.category = category
         self.args = args
+        self.pre_junc_transform = pre_transform
 
     @staticmethod
     def parse_from_node(node, rolename):
@@ -49,6 +50,12 @@ class ActorConfigurationData(object):
 
         speed = node.attrib.get('speed', 0)
 
+        # pre_junc
+        pre_pos_x = float(node.attrib.get('pre_x', 0))
+        pre_pos_y = float(node.attrib.get('pre_y', 0))
+        pre_yaw = float(node.attrib.get('pre_yaw', 0))
+        pre_transform = carla.Transform(carla.Location(x=pre_pos_x, y=pre_pos_y, z=0), carla.Rotation(yaw=pre_yaw))
+
         autopilot = False
         if 'autopilot' in node.keys():
             autopilot = True
@@ -59,7 +66,7 @@ class ActorConfigurationData(object):
 
         color = node.attrib.get('color', None)
 
-        return ActorConfigurationData(model, transform, rolename, speed, autopilot, random_location, color)
+        return ActorConfigurationData(model, transform, rolename, speed, autopilot, random_location, color, pre_transform=pre_transform)
 
 
 class ScenarioConfiguration(object):
