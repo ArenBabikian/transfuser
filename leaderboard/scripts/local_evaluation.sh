@@ -15,10 +15,11 @@ export LEADERBOARD_ROOT=${WORK_DIR}/leaderboard
 export PYTHONPATH="${SCENARIO_RUNNER_ROOT}":"${LEADERBOARD_ROOT}":${PYTHONPATH}
 
 export SAVE_DIR=${LEADERBOARD_ROOT}/aren/res
-export DATA_DIR=${LEADERBOARD_ROOT}/aren/data2
+export DATA_DIR=${LEADERBOARD_ROOT}/aren/fse
 # Modify below
 export SCENARIOS=${DATA_DIR}/empty_scenarios.json
-export ROUTES=${DATA_DIR}/generated0-test.xml
+# export ROUTES=${DATA_DIR}/generated0-test.xml
+export ROUTES=${DATA_DIR}/all-part.xml
 
 export REPETITIONS=1
 export CHALLENGE_TRACK_CODENAME=SENSORS
