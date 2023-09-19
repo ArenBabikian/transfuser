@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<routes>
+    <route id='scen_Town05_2240_1ac_0' town='Town05' intersection_id='2240' timeout='16'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='right'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_1ac_1' town='Town05' intersection_id='2240' timeout='25'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_1ac_2' town='Town05' intersection_id='2240' timeout='22'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_1ac_3' town='Town05' intersection_id='2240' timeout='25'>
+        <waypoint x='-147.34088134765625' y='154.5198211669922' z='0.0' maneuver='straight'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_1ac_4' town='Town05' intersection_id='2240' timeout='25'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='straight'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_1ac_5' town='Town05' intersection_id='2240' timeout='22'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='left'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_1ac_6' town='Town05' intersection_id='2240' timeout='25'>
+        <waypoint x='-103.29841613769531' y='147.72706604003906' z='0.0' maneuver='straight'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_1ac_7' town='Town05' intersection_id='2240' timeout='16'>
+        <waypoint x='-130.54896545410156' y='131.67245483398438' z='0.0' maneuver='right'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_0' town='Town05' intersection_id='2240' timeout='30'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <other_actor x='-127.13143157958984' y='122.41779327392578' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-127.13143157958984' pre_y='122.41779327392578' pre_yaw='89.48860931396484'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_1' town='Town05' intersection_id='2240' timeout='30'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <other_actor x='-141.39768981933594' y='151.04776000976562' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_2' town='Town05' intersection_id='2240' timeout='31'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <other_actor x='-130.6657257080078' y='118.5920181274414' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='right' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_3' town='Town05' intersection_id='2240' timeout='27'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-115.55781555175781' y='144.1693115234375' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_4' town='Town05' intersection_id='2240' timeout='29'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-133.6016845703125' y='151.08445739746094' z='0.0'  yaw='0.26970362663269043' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_5' town='Town05' intersection_id='2240' timeout='27'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-132.23931884765625' y='150.0037384033203' z='0.0'  yaw='-21.41588020324707' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_6' town='Town05' intersection_id='2240' timeout='27'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-107.94060516357422' y='147.70521545410156' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_7' town='Town05' intersection_id='2240' timeout='32'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='straight'/>
+        <other_actor x='-127.06331634521484' y='130.04910278320312' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_8' town='Town05' intersection_id='2240' timeout='27'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='left'/>
+        <other_actor x='-102.43096923828125' y='144.23110961914062' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_9' town='Town05' intersection_id='2240' timeout='27'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='left'/>
+        <other_actor x='-127.16664123535156' y='118.47354125976562' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_10' town='Town05' intersection_id='2240' timeout='27'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='left'/>
+        <other_actor x='-112.79798126220703' y='147.68234252929688' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.29837799072266' pre_y='147.70823669433594' pre_yaw='-179.7303009033203'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_11' town='Town05' intersection_id='2240' timeout='31'>
+        <waypoint x='-103.29841613769531' y='147.72706604003906' z='0.0' maneuver='straight'/>
+        <other_actor x='-127.02041625976562' y='134.85572814941406' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-107.29837799072266' pre_y='147.70823669433594' pre_yaw='-179.7303009033203'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_12' town='Town05' intersection_id='2240' timeout='31'>
+        <waypoint x='-103.29841613769531' y='147.72706604003906' z='0.0' maneuver='straight'/>
+        <other_actor x='-150.7161102294922' y='151.00389099121094' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-107.29837799072266' pre_y='147.70823669433594' pre_yaw='-179.7303009033203'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_2ac_13' town='Town05' intersection_id='2240' timeout='22'>
+        <waypoint x='-130.54896545410156' y='131.67245483398438' z='0.0' maneuver='right'/>
+        <other_actor x='-126.86979675292969' y='144.11607360839844' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_0' town='Town05' intersection_id='2240' timeout='35'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <other_actor x='-127.13143157958984' y='122.41779327392578' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-127.13143157958984' pre_y='122.41779327392578' pre_yaw='89.48860931396484'/>
+        <other_actor x='-154.50711059570312' y='150.98605346679688' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-154.50711059570312' pre_y='150.98605346679688' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_1' town='Town05' intersection_id='2240' timeout='36'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <other_actor x='-127.13143157958984' y='122.41779327392578' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-127.13143157958984' pre_y='122.41779327392578' pre_yaw='89.48860931396484'/>
+        <other_actor x='-130.78549194335938' y='105.1740493774414' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='right' model='vehicle.tesla.model3' pre_x='-130.78549194335938' pre_y='105.1740493774414' pre_yaw='89.48860931396484'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_2' town='Town05' intersection_id='2240' timeout='36'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <other_actor x='-141.39768981933594' y='151.04776000976562' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-130.78506469726562' y='105.22183227539062' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='right' model='vehicle.tesla.model3' pre_x='-130.78506469726562' pre_y='105.22183227539062' pre_yaw='89.48860931396484'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_3' town='Town05' intersection_id='2240' timeout='34'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-115.55781555175781' y='144.1693115234375' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-144.08633422851562' y='151.0351104736328' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-144.08633422851562' pre_y='151.0351104736328' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_4' town='Town05' intersection_id='2240' timeout='32'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-104.58841705322266' y='144.220947265625' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-132.23931884765625' y='150.0037384033203' z='0.0'  yaw='-21.41588020324707' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_5' town='Town05' intersection_id='2240' timeout='32'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-115.55781555175781' y='144.1693115234375' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-94.5483627319336' y='147.76824951171875' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_6' town='Town05' intersection_id='2240' timeout='34'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-144.08880615234375' y='151.03509521484375' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-132.23931884765625' y='150.0037384033203' z='0.0'  yaw='-21.41588020324707' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_7' town='Town05' intersection_id='2240' timeout='34'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-145.2825164794922' y='151.02947998046875' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-107.94060516357422' y='147.70521545410156' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_8' town='Town05' intersection_id='2240' timeout='32'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-132.23931884765625' y='150.0037384033203' z='0.0'  yaw='-21.41588020324707' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-94.5458984375' y='147.7682647705078' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_9' town='Town05' intersection_id='2240' timeout='32'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='left'/>
+        <other_actor x='-102.43096923828125' y='144.23110961914062' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-127.2857666015625' y='105.12672424316406' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_10' town='Town05' intersection_id='2240' timeout='32'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='left'/>
+        <other_actor x='-88.39024353027344' y='144.29759216308594' z='0.0'  yaw='-182.09584045410156' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-112.79798126220703' y='147.68234252929688' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.29837799072266' pre_y='147.70823669433594' pre_yaw='-179.7303009033203'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_11' town='Town05' intersection_id='2240' timeout='32'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='left'/>
+        <other_actor x='-127.29582977294922' y='103.99971771240234' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-112.79798126220703' y='147.68234252929688' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.29837799072266' pre_y='147.70823669433594' pre_yaw='-179.7303009033203'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_3ac_12' town='Town05' intersection_id='2240' timeout='36'>
+        <waypoint x='-103.29841613769531' y='147.72706604003906' z='0.0' maneuver='straight'/>
+        <other_actor x='-127.02041625976562' y='134.85572814941406' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-165.26065063476562' y='150.19183349609375' z='0.0'  yaw='12.198343276977539' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-107.29837799072266' pre_y='147.70823669433594' pre_yaw='-179.7303009033203'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_4ac_0' town='Town05' intersection_id='2240' timeout='41'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <other_actor x='-127.13143157958984' y='122.41779327392578' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-127.13143157958984' pre_y='122.41779327392578' pre_yaw='89.48860931396484'/>
+        <other_actor x='-154.50711059570312' y='150.98605346679688' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-154.50711059570312' pre_y='150.98605346679688' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-130.90481567382812' y='91.80386352539062' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='right' model='vehicle.tesla.model3' pre_x='-130.90481567382812' pre_y='91.80386352539062' pre_yaw='89.48860931396484'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_4ac_1' town='Town05' intersection_id='2240' timeout='39'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-104.58841705322266' y='144.220947265625' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-104.58841705322266' pre_y='144.220947265625' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-157.48104858398438' y='150.9720458984375' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-157.48104858398438' pre_y='150.9720458984375' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-132.23931884765625' y='150.0037384033203' z='0.0'  yaw='-21.41588020324707' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_4ac_2' town='Town05' intersection_id='2240' timeout='39'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-115.55781555175781' y='144.1693115234375' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-158.6745147705078' y='150.9566192626953' z='0.0'  yaw='2.7547125816345215' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-158.6745147705078' pre_y='150.9566192626953' pre_yaw='2.7547125816345215'/>
+        <other_actor x='-94.5483627319336' y='147.76824951171875' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_4ac_3' town='Town05' intersection_id='2240' timeout='37'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-104.58841705322266' y='144.220947265625' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-132.23931884765625' y='150.0037384033203' z='0.0'  yaw='-21.41588020324707' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-81.33916473388672' y='147.150146484375' z='0.0'  yaw='-191.669677734375' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_4ac_4' town='Town05' intersection_id='2240' timeout='39'>
+        <waypoint x='-127.04911041259766' y='131.64120483398438' z='0.0' maneuver='left'/>
+        <other_actor x='-158.67697143554688' y='150.9564971923828' z='0.0'  yaw='2.7547125816345215' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-132.23931884765625' y='150.0037384033203' z='0.0'  yaw='-21.41588020324707' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-94.5458984375' y='147.7682647705078' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town05_2240_4ac_5' town='Town05' intersection_id='2240' timeout='37'>
+        <waypoint x='-147.32440185546875' y='151.01986694335938' z='0.0' maneuver='left'/>
+        <other_actor x='-88.39024353027344' y='144.29759216308594' z='0.0'  yaw='-182.09584045410156' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.28189849853516' pre_y='144.20828247070312' pre_yaw='-179.7303009033203'/>
+        <other_actor x='-127.41495513916016' y='90.65290832519531' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-112.79798126220703' y='147.68234252929688' z='0.0'  yaw='-179.7303009033203' speed='transfuser' maneuver='straight' model='vehicle.tesla.model3' pre_x='-107.29837799072266' pre_y='147.70823669433594' pre_yaw='-179.7303009033203'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+</routes>
