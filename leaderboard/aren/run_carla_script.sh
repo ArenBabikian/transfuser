@@ -15,7 +15,10 @@ export LEADERBOARD_ROOT=${WORK_DIR}/leaderboard
 export PYTHONPATH="${SCENARIO_RUNNER_ROOT}":"${LEADERBOARD_ROOT}":${PYTHONPATH}
 
 
-# python carla/PythonAPI/util/config.py -m Town07
-python tools/map2Xodr.py
+python carla/PythonAPI/util/config.py -m /Game/Krisztina/Maps/Krisztina/Krisztina
+python carla/PythonAPI/util/config.py --list
+python carla/PythonAPI/util/config.py --inspect
+
+# python tools/map2Xodr.py
 
 
