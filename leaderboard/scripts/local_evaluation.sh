@@ -18,7 +18,7 @@ export PYTHONPATH="${SCENARIO_RUNNER_ROOT}":"${LEADERBOARD_ROOT}":${PYTHONPATH}
 TIME=$(date +"%m%d-%H%M%S") # TODO fix this! specially for running multiple cases
 export SAVE_DIR=${LEADERBOARD_ROOT}/aren/_res/${TIME}
 mkdir $SAVE_DIR
-export DATA_DIR=${LEADERBOARD_ROOT}/aren/fse
+export DATA_DIR=${LEADERBOARD_ROOT}/aren/issta
 # Modify below
 export SCENARIOS=${DATA_DIR}/empty_scenarios.json
 # export ROUTES=${DATA_DIR}/generated0-test.xml

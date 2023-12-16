@@ -18,11 +18,11 @@ TIME=$(date +"%m%d-%H%M%S")
 TIME=town04-916-3-4-colored
 # TIME=town05-2240-3-4
 
-export SAVE_DIR=${WORK_DIR}/fse/res/${TIME}
+export SAVE_DIR=${WORK_DIR}/issta/res/${TIME}
 mkdir $SAVE_DIR
 
 # CONFIGURATION
-export DATA_DIR=${WORK_DIR}/fse/config
+export DATA_DIR=${WORK_DIR}/issta/config
 export SCENARIOS=${DATA_DIR}/empty_scenarios.json
 # export ROUTES=${DATA_DIR}/Town04_916_1_4_actors_all_scenarios.xml
 # export ROUTES=${DATA_DIR}/Town05_2240_3_4_colored_actors_all_scenarios.xml
