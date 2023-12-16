@@ -34,7 +34,12 @@ def main():
 
 
     filepath = args.logpath   
-    client.show_recorder_file_info("recording01.log")
+    f = client.show_recorder_file_info(filepath, True)
+    f_false = client.show_recorder_file_info(filepath, False)
+    print(type(f))
+    # exit()
+    print(f_false)
+    # print(client.show_recorder_collisions(filepath, 'aa', 'aa'))
     exit()
 
     x = client.replay_file(filepath, 0, 0, 0, 1)

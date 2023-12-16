@@ -162,3 +162,7 @@ cython_debug/
 results/
 model_ckpt/
 data/
+_res/
+res/
+carla*
+leaderboard/aren/res

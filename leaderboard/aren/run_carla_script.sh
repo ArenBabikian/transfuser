@@ -15,9 +15,11 @@ export LEADERBOARD_ROOT=${WORK_DIR}/leaderboard
 export PYTHONPATH="${SCENARIO_RUNNER_ROOT}":"${LEADERBOARD_ROOT}":${PYTHONPATH}
 
 
-python carla/PythonAPI/util/config.py -m /Game/Krisztina/Maps/Krisztina/Krisztina
-python carla/PythonAPI/util/config.py --list
-python carla/PythonAPI/util/config.py --inspect
+# python carla/PythonAPI/util/config.py -m /Game/Krisztina/Maps/Krisztina/Krisztina
+# python carla/PythonAPI/util/config.py --list
+# python carla/PythonAPI/util/config.py --inspect
+python leaderboard/aren/pritnReplay.py --logpath /home/ubuntu/git/transfuser/leaderboard/aren/_res/0919-182808/RouteScenario_Town05_2actor_X_rep0.log
+
 
 # python tools/map2Xodr.py
 

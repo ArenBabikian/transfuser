@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<routes>
+    <route id='Town05_2actor_X' town='Town05' intersection_id='2240' timeout='31'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <other_actor x='-130.71527099609375' y='113.04039001464844' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='right' model='vehicle.tesla.model3' pre_x='-143.32444763183594' pre_y='151.0386962890625' pre_yaw='0.26970669627189636'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='Town05_4actor_Y' town='Town05' intersection_id='2240' timeout='46'>
+        <waypoint x='-103.28194427490234' y='144.22711181640625' z='0.0' maneuver='straight'/>
+        <other_actor x='-127.13143157958984' y='122.41779327392578' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-127.13143157958984' pre_y='122.41779327392578' pre_yaw='89.48860931396484'/>
+        <other_actor x='-154.50711059570312' y='150.98605346679688' z='0.0'  yaw='0.26970669627189636' speed='transfuser' maneuver='left' model='vehicle.tesla.model3' pre_x='-154.50711059570312' pre_y='150.98605346679688' pre_yaw='0.26970669627189636'/>
+        <other_actor x='-130.97622680664062' y='83.80418395996094' z='0.0'  yaw='89.48860931396484' speed='transfuser' maneuver='right' model='vehicle.tesla.model3' pre_x='-130.97622680664062' pre_y='83.80418395996094' pre_yaw='89.48860931396484'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+</routes>
+
+

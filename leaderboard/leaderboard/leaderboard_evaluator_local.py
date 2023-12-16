@@ -342,8 +342,8 @@ class LeaderboardEvaluator(object):
 
             # Load scenario and run it
             if args.record:
-                record_path = args.record
-                # record_path="{}/{}_rep{}.log".format(args.record, config.name, config.repetition_index)
+                # record_path = args.record
+                record_path="{}/{}_rep{}.log".format(args.record, config.name, config.repetition_index)
                 print(f'RECORDING at {record_path}')
                 self.client.start_recorder(record_path)
             self.manager.load_scenario(scenario, self.agent_instance, config.repetition_index)

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<routes>
+    <route id='scen_Town04_916_1ac_0' town='Town04' intersection_id='916' timeout='19'>
+        <waypoint x='203.53323364257812' y='-232.517333984375' z='0.0' maneuver='straight'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_1' town='Town04' intersection_id='916' timeout='16'>
+        <waypoint x='203.53323364257812' y='-232.517333984375' z='0.0' maneuver='right'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_2' town='Town04' intersection_id='916' timeout='18'>
+        <waypoint x='203.53323364257812' y='-232.517333984375' z='0.0' maneuver='left'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_3' town='Town04' intersection_id='916' timeout='19'>
+        <waypoint x='200.7425079345703' y='-263.469482421875' z='0.0' maneuver='straight'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_4' town='Town04' intersection_id='916' timeout='19'>
+        <waypoint x='200.7425079345703' y='-263.469482421875' z='0.0' maneuver='left'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_5' town='Town04' intersection_id='916' timeout='16'>
+        <waypoint x='200.7425079345703' y='-263.469482421875' z='0.0' maneuver='right'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_6' town='Town04' intersection_id='916' timeout='16'>
+        <waypoint x='217.76669311523438' y='-249.45132446289062' z='0.0' maneuver='right'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_7' town='Town04' intersection_id='916' timeout='18'>
+        <waypoint x='217.76669311523438' y='-249.45132446289062' z='0.0' maneuver='left'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_8' town='Town04' intersection_id='916' timeout='19'>
+        <waypoint x='217.76669311523438' y='-249.45132446289062' z='0.0' maneuver='straight'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_9' town='Town04' intersection_id='916' timeout='19'>
+        <waypoint x='187.243896484375' y='-244.936279296875' z='0.0' maneuver='left'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_10' town='Town04' intersection_id='916' timeout='15'>
+        <waypoint x='187.243896484375' y='-244.936279296875' z='0.0' maneuver='right'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+    <route id='scen_Town04_916_1ac_11' town='Town04' intersection_id='916' timeout='19'>
+        <waypoint x='187.243896484375' y='-244.936279296875' z='0.0' maneuver='straight'/>
+        <weather id='Custom' cloudiness='10.000000' precipitation='0.000000' precipitation_deposits='0.000000' wind_intensity='5.000000' sun_azimuth_angle='170.000000' sun_altitude_angle='30.000000' fog_density='10.000000' fog_distance='75.000000' fog_falloff='0.900000' wetness='0.000000'/>
+    </route>
+</routes>
